@@ -1,0 +1,7 @@
+#!/bin/bash
+
+service ntp stop
+sudo ntpdate pool.ntp.org
+service ntp start
+
+#

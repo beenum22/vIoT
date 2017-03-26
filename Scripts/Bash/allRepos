@@ -1,0 +1,10 @@
+cinder
+glance
+horizon
+keystone
+neutron
+nova
+nova-lxd
+noVNC
+requirements
+pylxd
