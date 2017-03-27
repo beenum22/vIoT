@@ -18,7 +18,6 @@ class Utilities(object):
     def aliveHosts(self, subnet):
         '''To find alive hosts, you are gonna need nmap tool installed'''
         out = linuxCmd("sudo nmap -sn %s" % subnet)
-        
 
     def linuxCmd(self, cmd):
         '''To store output and error if needed'''

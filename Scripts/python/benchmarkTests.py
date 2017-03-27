@@ -25,7 +25,7 @@ class novaTime(object):
     def novaBoot(self):
         self.run_cmd("source /home/$USER/devstack/openrc admin admin")
         cmd = "openstack server create --image %s --flavor %s --max %s %s" % (
-            self.options.image, self.options.flavor, self.options.containerCount, self.options.name)
+            self.options.image, self.options.flavor, str(self.options.containerCount), self.options.name)
         self.run_cmd(cmd)
         '''
         for i in range (self.options.containerCount):
@@ -60,6 +60,8 @@ class novaTime(object):
                 print "----------------------\n"
                 print "Total time : %s sec\n" % totalTime
                 print "----------------------\n"
+                with open("times.txt", "a") as myfile:
+                    myfile.write("%s  :  %s  :  %s" % (self.options.containerCount, totalTime, self.options.image))
                 break
             '''
             else:
