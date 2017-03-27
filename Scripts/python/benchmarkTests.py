@@ -5,12 +5,21 @@ from subprocess import *
 import time
 import sys
 from threading import Thread
-
+from keystoneauth1.identity import v3
+from keystoneauth1 import session
+from novaclient import client
 
 class novaTime(object):
 
     def __init__(self, options):
         self.options = options
+
+    def novaTimes(self, authUrl, username, password, projectName, userDomainId='default', projectDomainId='default'):
+        auth = v3.Password(auth_url=authUrl, username=username, password=password, project_name=projectName, user_domain_id=userDomainId, project_domain_id=projectDomainId)
+        sess = session.Session(auth=auth)
+        nova = client.Client("2.1", session=sess)
+        flavors = nova.flavors.list()
+        
 
     def startTest(self):
         t = Thread(target=self.novaBoot)
