@@ -4,4 +4,5 @@
 # Add nova host if it's not in the aggregate list
 # Get image list and Add arm images to glance if not present already
 # Get flavor list and Add testing flavors to nova if not present
+# Use novaclient to count times etc
 
