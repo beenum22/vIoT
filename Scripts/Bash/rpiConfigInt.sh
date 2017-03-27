@@ -29,4 +29,6 @@ done
 echo "It's time to run start Devstack."
 cd $workDir/devstack && ./stack.sh
 
+# Run script/s for images, flavors and zones
+
 exit 0
