@@ -61,7 +61,7 @@ class novaTime(object):
                 print "Total time : %s sec\n" % totalTime
                 print "----------------------\n"
                 with open("times.txt", "a") as myfile:
-                    myfile.write("%s  :  %s  :  %s" % (self.options.containerCount, totalTime, self.options.image))
+                    myfile.write("%s  :  %s  :  %s\n" % (self.options.containerCount, totalTime, self.options.image))
                 break
             '''
             else:

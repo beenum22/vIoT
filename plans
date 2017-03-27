@@ -5,4 +5,10 @@
 # Get image list and Add arm images to glance if not present already
 # Get flavor list and Add testing flavors to nova if not present
 # Use novaclient to count times etc
+# Increase quotas
 
+# ADD submodules for all the downloadable packages and projects
+
+# CONFIG ADDITIONS
+# Add benchmarks part
+ # Add Auth url : OS_AUTH_URL=http://controller:5000/v3
