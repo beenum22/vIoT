@@ -17,9 +17,9 @@ class novaTime(object):
     def novaTimes(self, authUrl, username, password, projectName, userDomainId='default', projectDomainId='default'):
         auth = v3.Password(auth_url=authUrl, username=username, password=password, project_name=projectName, user_domain_id=userDomainId, project_domain_id=projectDomainId)
         sess = session.Session(auth=auth)
-        nova = client.Client("2.1", session=sess)
-        flavors = nova.flavors.list()
-        
+        nova = client.Client("2.42", session=sess)
+        servers = nova.servers.list()
+        print servers
 
     def startTest(self):
         t = Thread(target=self.novaBoot)
@@ -34,7 +34,7 @@ class novaTime(object):
     def novaBoot(self):
         self.run_cmd("source /home/$USER/devstack/openrc admin admin")
         cmd = "openstack server create --image %s --flavor %s --max %s %s" % (
-            self.options.image, self.options.flavor, str(self.options.containerCount), self.options.name)
+            self.options.image, self.options.flavor, self.options.containerCount, self.options.name)
         self.run_cmd(cmd)
         '''
         for i in range (self.options.containerCount):
@@ -69,8 +69,11 @@ class novaTime(object):
                 print "----------------------\n"
                 print "Total time : %s sec\n" % totalTime
                 print "----------------------\n"
+<<<<<<< Updated upstream
                 with open("times.txt", "a") as myfile:
                     myfile.write("%s  :  %s  :  %s\n" % (self.options.containerCount, totalTime, self.options.image))
+=======
+>>>>>>> Stashed changes
                 break
             '''
             else:
