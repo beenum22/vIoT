@@ -16,7 +16,7 @@ then
     if [ $# -eq 7 ]
     then
         sed -i 's/#PUBLIC_INTERFACE=/PUBLIC_INTERFACE='$4'/' $FILEPATH
-        sed -i 's/#FLOATING_RANGE=/FLOATING_RANGE='$5'/' $FILEPATH
+        sed -i 's~#FLOATING_RANGE=~FLOATING_RANGE='$5'~' $FILEPATH
         sed -i 's/#PUBLIC_NETWORK_GATEWAY=/PUBLIC_NETWORK_GATEWAY='$6'/' $FILEPATH
         IFS='-' read -ra floatRange <<< "$7"
         sed -i 's/#Q_FLOATING_ALLOCATION_POOL=start=,end=/Q_FLOATING_ALLOCATION_POOL=start='"${floatRange[0]}"',end='"${floatRange[1]}"'/' $FILEPATH
