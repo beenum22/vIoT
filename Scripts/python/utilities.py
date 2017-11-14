@@ -30,12 +30,17 @@ class Utilities(object):
         cmd = [script]
         for a in args:
             cmd.append(a)
-        output = check_call(cmd)
+        try:
+            output = check_call(cmd)
+        except subprocess.CalledProcessError:
+            print "Error: '%s' failed." % cmd
+            exit('Exiting...')
         return output
 
     def startEndResize(self, dName):
         '''Finding out the start and end for root fs resize'''
-        out = self.linuxCmd("echo -e 'unit chs\nprint free' | sudo parted /dev/%s" % dName)
+        out = self.linuxCmd(
+            "echo -e 'unit chs\nprint free' | sudo parted /dev/%s" % dName)
         t1 = "Disk /dev/%s: " % dName
         t2 = "2      "
         i1 = out.find(t1)
@@ -51,13 +56,16 @@ class Utilities(object):
     def randIPs(self, subnet, count=-1, rangeStart=0, rangeEnd=-1):
         '''Output <count> random IPs from the <subnet>'''
         '''range: its value is in the form start-end'''
-        ipAddr = {'IP Addresses':[]}
-        net = list(ipaddress.ip_network(unicode(subnet)).hosts())[rangeStart:rangeEnd]
+        ipAddr = {'IP Addresses': []}
+        net = list(ipaddress.ip_network(unicode(subnet)).hosts())[
+            rangeStart:rangeEnd]
         while True:
             addr = random.choice(net)
             if str(addr) not in ipAddr['IP Addresses']:
                 ipAddr['IP Addresses'].append(str(addr))
-            if len(ipAddr['IP Addresses']) == count  or len(ipAddr['IP Addresses']) == len(net):
+            if len(
+                    ipAddr['IP Addresses']) == count or len(
+                    ipAddr['IP Addresses']) == len(net):
                 break
         return ipAddr
 
