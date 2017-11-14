@@ -1,10 +1,15 @@
 #!/bin/bash
 stackDir=/opt/stack
 #workDir=$HOME/vIoT
-workDir=../
+workDir=..
 IFS=' ' read -r -a repos <<< "$1"
 echo "Cloning devstack."
-git clone https://github.com/beenum22/devstack $workDir/devstack
+if [ $2 == 'custom' ]; then
+    git clone https://github.com/beenum22/devstack $workDir/devstack
+else
+    git clone https://github.com/openstack-dev/devstack $workDir/devstack
+fi
+#git clone https://github.com/beenum22/devstack $workDir/devstack
 echo "Copying local.conf to '$workDir'/devstack"
 cp $workDir/Scripts/Bash/samples/local.conf $workDir/devstack/
 if [ -d "$stackDir" ]
