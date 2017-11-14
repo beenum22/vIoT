@@ -32,8 +32,11 @@ class Utilities(object):
             cmd.append(a)
         try:
             output = check_call(cmd)
-        except subprocess.CalledProcessError:
+        except CalledProcessError:
             print "Error: '%s' failed." % cmd
+            exit('Exiting...')
+        except KeyboardInterrupt:
+            print "Execution aborted."
             exit('Exiting...')
         return output
 
