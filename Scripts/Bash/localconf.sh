@@ -1,5 +1,6 @@
 #!/bin/bash
-FILEPATH=/home/$USER/vIoT/Scripts/Bash/samples/local.conf
+WORK_DIR=$(pwd)
+FILEPATH=$WORK_DIR/Bash/samples/local.conf
 if [ $1 == "-h" ]; then
   echo "Usage: `basename $0` example cmd; ./localconf.sh rpi 192.168.0.101 192.168.0.100
        where
@@ -10,7 +11,7 @@ if [ $1 == "-h" ]; then
   exit 0
 elif [ $1 == "controller" ]
 then
-    cp /home/$USER/vIoT/Scripts/Bash/samples/contLocal.conf $FILEPATH
+    cp $WORK_DIR/Bash/samples/contLocal.conf $FILEPATH
     sed -i 's/#HOST_IP=/HOST_IP='$2'/' $FILEPATH
     sed -i 's/#FLAT_INTERFACE=/FLAT_INTERFACE='$3'/' $FILEPATH
     if [ $# -eq 7 ]

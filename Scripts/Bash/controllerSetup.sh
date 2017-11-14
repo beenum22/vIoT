@@ -1,6 +1,7 @@
 #!/bin/bash
 stackDir=/opt/stack
-workDir=$HOME/vIoT
+#workDir=$HOME/vIoT
+workDir=../
 IFS=' ' read -r -a repos <<< "$1"
 echo "Cloning devstack."
 git clone https://github.com/beenum22/devstack $workDir/devstack
@@ -16,15 +17,17 @@ else
     echo "Changing owner of '$stackDir' to '$USER'"
     sudo chown -R $USER $stackDir
 fi
-
-for r in "${repos[@]}";do
-    if [ -d "$stackDir/$r" ]; then
-        echo "Directory $r already exists"
-    else
-        echo "Cloning $r"
-        git clone https://github.com/beenum22/$r $stackDir/$r
-    fi
-done
+if [ $2 == 'custom']
+then
+    for r in "${repos[@]}";do
+        if [ -d "$stackDir/$r" ]; then
+            echo "Directory $r already exists"
+        else
+            echo "Cloning $r"
+            git clone https://github.com/beenum22/$r $stackDir/$r
+        fi
+    done
+fi
 echo "It's time to run start Devstack."
 cd $workDir/devstack && ./stack.sh
 

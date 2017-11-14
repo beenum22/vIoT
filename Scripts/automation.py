@@ -71,6 +71,12 @@ class runTest(object):
             default='muneeb',
             type='str',
             help="Enter controller/compute/rpiExt to start corresponding task.")
+        parser.add_option(
+            "--source",
+            dest='source',
+            default=config.get("DEFAULT", "source"),
+            type='str',
+            help="Enter the source for OpenStack packages.")
         (options, args) = parser.parse_args()
         print "-----------"
         # print options.task

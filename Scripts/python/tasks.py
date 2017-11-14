@@ -21,7 +21,8 @@ class Tasks(Utilities):
         '''RPi Configuration'''
         #  Installing OS
         print "+----------------------------------+"
-        self.linuxCmd("xzcat /home/$USER/vIoT/Images/%s -v | sudo dd of=/dev/%s bs=32M status=progress" % (self.options.os, self.options.dName))
+        self.linuxCmd("xzcat /home/$USER/vIoT/Images/%s -v | sudo dd of=/dev/%s bs=32M status=progress" %
+                      (self.options.os, self.options.dName))
         print "'%s' successfully installed to '/dev/%s" % (self.options.os, self.options.dName)
         print "+----------------------------------+"
         #  Getting start and end value needed for resizing.
@@ -34,7 +35,7 @@ class Tasks(Utilities):
             end)
         print "+----------------------------------+"
         print "Setup Successful."
-        print "+----------------------------------+" 
+        print "+----------------------------------+"
         print "Remove the microSDcard now."
         print "+----------------------------------+"
         # return out
@@ -47,7 +48,8 @@ class Tasks(Utilities):
         if self.options.pubInt == 'no':
             #  For private use only
             print "Private mode selected."
-            self.bashScript('Bash/localconf.sh', self.options.task, self.options.controllerIp, self.options.flatInt)
+            self.bashScript('Bash/localconf.sh', self.options.task,
+                            self.options.controllerIp, self.options.flatInt)
         else:
             #  For public use only
             print "Public mode selected."
@@ -63,7 +65,12 @@ class Tasks(Utilities):
         print "+----------------------------------+"
         print "local.conf generated."
         print "+----------------------------------+"
-        self.bashScript('Bash/controllerSetup.sh', self.options.repos)
+        if self.options.source == 'custom':
+            print "Custom location selected for OpenStack packages"
+            self.bashScript('Bash/controllerSetup.sh', self.options.repos, self.options.source)
+        else:
+            print "Default location selected for OpenStack packages"
+            self.bashScript('Bash/controllerSetup.sh', self.options.repos, self.options.source)
         print "Setup Successful."
         print "Go nuts!"
         print "+----------------------------------+"
@@ -76,11 +83,11 @@ class Tasks(Utilities):
         print "+----------------------------------+"
         print "Host IP is %s" % hostIp
         print "+----------------------------------+"
-        self.bashScript('Bash/localconf.sh', self.options.task, hostIp, self.options.controllerIp)
+        self.bashScript('Bash/localconf.sh', self.options.task,
+                        hostIp, self.options.controllerIp)
         print "+----------------------------------+"
         print "local.conf generated."
         print "+----------------------------------+"
         print self.options.repos
         self.bashScript('Bash/rpiConfigInt.sh', self.options.repos)
         print "Setup Successful."
-
