@@ -38,7 +38,6 @@ class runTest(object):
         '''
         parser.add_option(
             "--stackDir",
-            "-s",
             dest='stackDir',
             default=config.get("DEFAULT", "stackDir"),
             type='str',
@@ -131,6 +130,13 @@ class runTest(object):
                 default=config.get("RPI", "os"),
                 type='str',
                 help="Operating system to install.")
+            parser.add_option(
+                "--imageStatus",
+                "-s",
+                dest='imageStatus',
+                default=config.get("RPI", "imageStatus"),
+                type='str',
+                help="Check if sdCard image is ready or not.")
         (options, args) = parser.parse_args()
         #test = Tasks(options)
         # test.rpiConfig()

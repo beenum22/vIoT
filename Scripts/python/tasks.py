@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 
 import os
-from subprocess import *
 import time
 import sys
 import netifaces
@@ -21,14 +20,18 @@ class Tasks(Utilities):
         '''RPi Configuration'''
         #  Installing OS
         print "+----------------------------------+"
+<<<<<<< Updated upstream
         self.linuxCmd("xzcat /home/$USER/vIoT/Images/%s -v | sudo dd of=/dev/%s bs=32M status=progress" %
                       (self.options.os, self.options.dName))
+=======
+        self.run_cmd("xzcat /home/$USER/vIoT/Images/%s -v | sudo dd of=/dev/%s bs=32M status=progress" % (self.options.os, self.options.dName))
+>>>>>>> Stashed changes
         print "'%s' successfully installed to '/dev/%s" % (self.options.os, self.options.dName)
         print "+----------------------------------+"
         #  Getting start and end value needed for resizing.
         start, end = self.startEndResize(self.options.dName)
         # print "Installing OS '%s' and resizing it's Filesystem." %
-        self.bashScript(
+        self._bash_script(
             'Bash/rpiConfigExt.sh',
             self.options.dName,
             start,
@@ -48,12 +51,16 @@ class Tasks(Utilities):
         if self.options.pubInt == 'no':
             #  For private use only
             print "Private mode selected."
+<<<<<<< Updated upstream
             self.bashScript('Bash/localconf.sh', self.options.task,
                             self.options.controllerIp, self.options.flatInt)
+=======
+            self._bash_script('Bash/localconf.sh', self.options.task, self.options.controllerIp, self.options.flatInt)
+>>>>>>> Stashed changes
         else:
             #  For public use only
             print "Public mode selected."
-            self.bashScript(
+            self._bash_script(
                 'Bash/localconf.sh',
                 self.options.task,
                 self.options.controllerIp,
@@ -65,12 +72,16 @@ class Tasks(Utilities):
         print "+----------------------------------+"
         print "local.conf generated."
         print "+----------------------------------+"
+<<<<<<< Updated upstream
         if self.options.source == 'custom':
             print "Custom location selected for OpenStack packages"
             self.bashScript('Bash/controllerSetup.sh', self.options.repos, self.options.source)
         else:
             print "Default location selected for OpenStack packages"
             self.bashScript('Bash/controllerSetup.sh', self.options.repos, self.options.source)
+=======
+        self._bash_script('Bash/controllerSetup.sh', self.options.repos)
+>>>>>>> Stashed changes
         print "Setup Successful."
         print "Go nuts!"
         print "+----------------------------------+"
@@ -83,11 +94,15 @@ class Tasks(Utilities):
         print "+----------------------------------+"
         print "Host IP is %s" % hostIp
         print "+----------------------------------+"
+<<<<<<< Updated upstream
         self.bashScript('Bash/localconf.sh', self.options.task,
                         hostIp, self.options.controllerIp)
+=======
+        self._bash_script('Bash/localconf.sh', self.options.task, hostIp, self.options.controllerIp)
+>>>>>>> Stashed changes
         print "+----------------------------------+"
         print "local.conf generated."
         print "+----------------------------------+"
         print self.options.repos
-        self.bashScript('Bash/rpiConfigInt.sh', self.options.repos)
+        self._bash_script('Bash/rpiConfigInt.sh', self.options.repos)
         print "Setup Successful."
